@@ -40,7 +40,7 @@ const GoogleBooksSearch = () => {
         {
           title: title,
           author: authors.join(', '),
-          publisher: publisher,
+          publisher: publisher ? publisher : 'Unknown',
           pageCount: pageCount,
           current_user_token: "5650c695baf0828f218c7dd99b831f868fa8453cee739908"
         },
@@ -51,14 +51,13 @@ const GoogleBooksSearch = () => {
           }
         }
       );
-
+  
       console.log('Added to shelf:', title);
       window.location.reload(); // Reload the page after adding to the shelf
     } catch (error) {
       console.error('Error adding to shelf:', error);
     }
   };
-
   return (
     <div>
       <h1>Google Books Search</h1>
