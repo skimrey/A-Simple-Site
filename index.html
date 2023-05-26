@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Books Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .selected {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        // Function to handle the search request
+        function searchBooks() {
+            // Clear previous results and selection
+            $('#results').html('');
+            $('#selectedItem').html('');
+
+            // Get the keyword entered by the user
+            var keyword = $('#keyword').val();
+
+            // Make the API request
+            $.ajax({
+                url: 'https://www.googleapis.com/books/v1/volumes',
+                data: { q: keyword },
+                dataType: 'json',
+                success: function(data) {
+                    // Process the response
+                    if (data.totalItems > 0) {
+                        $.each(data.items, function(index, item) {
+                            var title = item.volumeInfo.title;
+                            var authors = item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : 'Unknown';
+
+                            var listItem = $('<li>')
+                                .html('<h3>' + title + '</h3><p>' + authors + '</p>')
+                                .click(function() {
+                                    // Handle item selection
+                                    $(this).addClass('selected').siblings().removeClass('selected');
+                                    $('#selectedItem').html('<p>You selected: ' + title + '</p>');
+                                });
+
+                            var addButton = $('<button>')
+                                .text('Add to My Shelf')
+                                .click(function(event) {
+                                    event.stopPropagation(); // Prevent selection when clicking the button
+
+                                    // Send POST request to substitute.com
+                                    $.ajax({
+                                        url: 'https://substitute.com/api/add-to-shelf',
+                                        type: 'POST',
+                                        data: {
+                                            title: title,
+                                            authors: authors
+                                        },
+                                        success: function(response) {
+                                            console.log('Added to shelf:', response);
+                                        },
+                                        error: function() {
+                                            console.log('Error adding to shelf');
+                                        }
+                                    });
+                                });
+
+                            listItem.append(addButton);
+                            $('#results').append(listItem);
+                        });
+                    } else {
+                        $('#results').html('<p>No results found.</p>');
+                    }
+                },
+                error: function() {
+                    $('#results').html('<p>An error occurred while fetching results.</p>');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Google Books Search</h1>
+    <input type="text" id="keyword" placeholder="Enter a keyword">
+    <button onclick="searchBooks()">Search</button>
+    <ul id="results"></ul>
+    <div id="selectedItem"></div>
+</body>
+</html>
