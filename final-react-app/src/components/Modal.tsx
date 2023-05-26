@@ -39,7 +39,7 @@ export default function BasicModal(props: Props) {
       setTimeout( () => { window.location.reload() }, 500)
     }
     return (
-      <div>
+      <div className='m-10 mt-0'>
         <Button onClick={handleOpen}>Create New Book</Button>
         <Modal
           open={open}

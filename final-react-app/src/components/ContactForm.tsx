@@ -28,8 +28,8 @@ const ContactForm = (props:ContactFormProps) => {
       // Use dispatch to update our state in our store
       dispatch(chooseName(data.title));
       dispatch(chooseEmail(data.author));
-      dispatch(chooseAddress(data.publisher));
-      dispatch(choosePhone(data.pageCount));
+      dispatch(chooseAddress(data.pageCount));
+      dispatch(choosePhone(data.publisher));
 
       server_calls.create(store.getState())
      

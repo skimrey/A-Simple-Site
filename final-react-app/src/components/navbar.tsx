@@ -20,6 +20,7 @@ function Navbar() {
 
     const signInOnClick = async () => {
       const response = await signInWithPopup(auth, Providers.google);
+      await delay(100);
       if( response.user) {
         location.reload();
       }
@@ -34,24 +35,28 @@ function Navbar() {
     }
   
     return (
-      <nav className='flex items-center justify-between flex-wrap bg-teal-500 p-6'>
+      <nav className='flex items-center justify-between flex-wrap bg-gray-900 p-6'>
           <div className='flex items-center flex-shrink-0 text-white mr-6'>
-              <Link to='/' className='font-semibold text-xl tracking-tight'>Park It</Link>
+              <Link to='/' className='font-semibold text-xl tracking-tight'>My Shelf</Link>
           </div>
+          { !isVisible ? (
           <div className="block">
               <button 
                   onClick={dropDown}
-                  className="flex items-center px-3 py-2 text-teal-200 
-                  border rounded border-teal-400 hover:text-white hover:border-white"
+                  className="flex items-center px-3 py-2 text-white 
+                  border rounded hover:text-white hover:border-white"
                   >
                       <i className="fas fa-bars"></i>
               </button>
           </div>
+           ) : (
+            <></>
+           )}
           { isVisible ? ( 
-            <div className='w-full block '>
-                <div className="text-sm right-0 ">
+            <div className=' block '>
+                <div className="text-sm ">
                     
-                        <Button className="p-3 m-1 bg-teal-400 justify-center">
+                        <Button className="p-3 m-1 justify-center">
                             <div>
                             <Link to='/' onClick={clicked} className='flex place-items-center lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'>Home</Link>
                             </div>
@@ -59,7 +64,7 @@ function Navbar() {
                         
                         {
                           auth.currentUser ?
-                        <Button className="p-3 m-1 bg-teal-400 justify-center">
+                        <Button className="p-3 m-1  justify-center">
                             <div>
                             <Link to='/dashboard' className='flex place-items-center lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4'>Dashboard</Link>
                             </div>
@@ -70,7 +75,7 @@ function Navbar() {
                         {
                           !auth.currentUser ? 
 
-                          <Button className='p-3 m-1  bg-teal-400'> 
+                          <Button className='p-3 m-1 '> 
                             <div>
                               <Link to="/" onClick={ () => {signInOnClick()}} className="flex place-items-center lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                                 Login
@@ -78,7 +83,7 @@ function Navbar() {
                             </div>
                           </Button>
                           :
-                          <Button className='p-3 m-1 bg-teal-400 justify-center'> 
+                          <Button className='p-3 m-1 justify-center'> 
                             <div>
                               <Link to="/" onClick={ () => {signOutOnClick()}} className="flex place-items-center lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                                 Sign Out

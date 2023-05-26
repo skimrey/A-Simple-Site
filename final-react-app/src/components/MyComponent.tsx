@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Button from '@mui/material/Button';
+
 
 const GoogleBooksSearch = () => {
   const [keyword, setKeyword] = useState('');
@@ -60,20 +62,22 @@ const GoogleBooksSearch = () => {
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         placeholder="Enter a keyword"
+        className='bg-gray-200 '
       />
-      <button onClick={handleSearch}>Search</button>
+      <Button onClick={handleSearch}>Search</Button>
       {searched && results.length === 0 && <p>No results found.</p>}
-      <ul>
+      <ul className='m-0'>
         {results.length > 0 &&
           results.map((item) => (
-            <li key={item.id}>
-              <h3>{item.volumeInfo.title}</h3>
-              <p>
+            <li key={item.id} className='bg-gray-200'>
+              <h3 className='text-lg ml-2'>{item.volumeInfo.title}</h3>
+              <p className='text-sm ml-2'>
                 {item.volumeInfo.authors
                   ? item.volumeInfo.authors.join(', ')
                   : 'Unknown'}
               </p>
-              <button
+              <Button
+              
                 onClick={() =>
                   handleAddToShelf(
                     item.volumeInfo.title,
@@ -84,7 +88,7 @@ const GoogleBooksSearch = () => {
                 }
               >
                 Add to My Shelf
-              </button>
+              </Button>
             </li>
           ))}
       </ul>
