@@ -4,11 +4,10 @@ import MyComponent from '../components/MyComponent'
 function Dashboard() {
   return (
     <div className='form'>
-      <div className='m-10'>
+      <DataTable />
+      <div className='ml-10 mr-10'>
       <MyComponent />
       </div>
-      <DataTable />
-        
     </div>
   )
 }
