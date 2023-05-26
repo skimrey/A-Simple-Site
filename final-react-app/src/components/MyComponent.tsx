@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 const GoogleBooksSearch = () => {
   const [keyword, setKeyword] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<any[]>([]);
   const [searched, setSearched] = useState(false);
 
   const handleSearch = async () => {
@@ -28,7 +28,12 @@ const GoogleBooksSearch = () => {
     }
   };
 
-  const handleAddToShelf = async (title, authors, publisher, pageCount) => {
+  const handleAddToShelf = async (
+    title: string,
+    authors: string[],
+    publisher: string,
+    pageCount: string
+  ) => {
     try {
       await axios.post(
         'https://sneaky-wholesale-hamster.glitch.me/api/books',
@@ -97,4 +102,3 @@ const GoogleBooksSearch = () => {
 };
 
 export default GoogleBooksSearch;
-
