@@ -18,6 +18,12 @@ const routes: RouteType[] = [
       protected: false
     },
     {
+      path: "/home",
+      component: Home,
+      name: "Home Screen",
+      protected: false
+    },
+    {
       path: "/dashboard",
       component: Dashboard,
       name: "Dashboard",
