@@ -43,7 +43,7 @@ function DataTable() {
     <>
         
         <div className={ open ? "hidden" : "container mx-10 my-5 flex flex-col"}
-          style={{ height: 400, width: '100%' }}
+          style={{ height: 400, width: '95%' }}
           >
             <DataGrid rows={contactData} columns={columns} rowsPerPageOptions={[5]}
             checkboxSelection={true} 
